@@ -17,7 +17,7 @@ public class KecamatanDTO {
 
     private String Nama;
 
-    private Set<Kependudukan> penduduk;
+//    private Set<Kependudukan> penduduk;
 
     private Set<Kelurahan> kelurahan;
 
@@ -37,13 +37,13 @@ public class KecamatanDTO {
         Nama = nama;
     }
 
-    public Set<Kependudukan> getPenduduk() {
-        return penduduk;
-    }
-
-    public void setPenduduk(Set<Kependudukan> penduduk) {
-        this.penduduk = penduduk;
-    }
+//    public Set<Kependudukan> getPenduduk() {
+//        return penduduk;
+//    }
+//
+//    public void setPenduduk(Set<Kependudukan> penduduk) {
+//        this.penduduk = penduduk;
+//    }
 
     public Set<Kelurahan> getKelurahan() {
         return kelurahan;

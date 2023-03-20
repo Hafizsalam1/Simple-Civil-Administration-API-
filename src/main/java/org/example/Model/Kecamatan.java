@@ -15,8 +15,8 @@ public class Kecamatan implements Serializable {
     @Column(length = 100)
     private String Nama;
 
-    @OneToMany(mappedBy = "kecamatan")
-    private Set<Kependudukan> penduduk;
+//    @OneToMany(mappedBy = "kecamatan")
+//    private Set<Kependudukan> penduduk;
 
     @OneToMany(mappedBy = "kecamatan")
     private Set<Kelurahan> kelurahan;
@@ -27,7 +27,7 @@ public class Kecamatan implements Serializable {
     public Kecamatan(Long id, String nama, Set<Kependudukan> penduduk, Set<Kelurahan> kelurahan) {
         this.id = id;
         Nama = nama;
-        this.penduduk = penduduk;
+//        this.penduduk = penduduk;
         this.kelurahan = kelurahan;
     }
 
@@ -47,13 +47,13 @@ public class Kecamatan implements Serializable {
         Nama = nama;
     }
 
-    public Set<Kependudukan> getPenduduk() {
-        return penduduk;
-    }
-
-    public void setPenduduk(Set<Kependudukan> penduduk) {
-        this.penduduk = penduduk;
-    }
+//    public Set<Kependudukan> getPenduduk() {
+//        return penduduk;
+//    }
+//
+//    public void setPenduduk(Set<Kependudukan> penduduk) {
+//        this.penduduk = penduduk;
+//    }
 
     public Set<Kelurahan> getKelurahan() {
         return kelurahan;

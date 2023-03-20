@@ -3,10 +3,13 @@ package org.example.Controller;
 import jakarta.validation.Valid;
 import org.example.Model.DTO.KecamatanDTO;
 import org.example.Model.DTO.KelurahanDTO;
+import org.example.Model.DTO.KependudukanDTO;
 import org.example.Model.Kecamatan;
 import org.example.Model.Kelurahan;
+import org.example.Model.Kependudukan;
 import org.example.Model.Response.SuccessResponse;
 import org.example.Service.ServiceKelurahan;
+import org.example.Service.ServiceKependudukan;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/kelurahan")
@@ -76,6 +82,17 @@ public class ControllerKelurahan {
         }
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Iterable<Kelurahan>>("Find Kelurahan succeed", kelurahans));
     }
+
+    @PostMapping("/penduduk/{id}")
+    public ResponseEntity saveAll(@RequestBody List<@Valid KependudukanDTO> kependudukanDTOS, @PathVariable Long id) throws Exception {
+        List<Kependudukan> kependudukans = kependudukanDTOS.stream()
+                .map(kependudukanDTO -> modelMapper.map(kependudukanDTO,Kependudukan.class))
+                .toList();
+        serviceKelurahan.saveAll(kependudukans, id);
+        return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Iterable<Kependudukan>>("Find Kelurahan succeed", kependudukans));
+
+    }
+
 
 
 

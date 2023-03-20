@@ -16,13 +16,17 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class ServiceKependudukan implements IService<Kependudukan> {
+public class ServiceKependudukan  {
 
     @Autowired
     RepoKependudukan repoKependudukan;
-    @Override
-public Kependudukan save(Kependudukan kependudukan) throws Exception{
+
+    public Kependudukan save(Kependudukan kependudukan) throws Exception{
     try {
+        if(kependudukan.getKelurahan() != null){
+            kependudukan.setKecamatan(kependudukan.getKelurahan().getKecamatan());
+        }
+        kependudukan.setKecamatan(kependudukan.getKelurahan().getKecamatan());
         return repoKependudukan.save(kependudukan);
     }
     catch (Exception e){
@@ -31,7 +35,6 @@ public Kependudukan save(Kependudukan kependudukan) throws Exception{
 
 }
 
-@Override
 public Iterable<Kependudukan> findAll(Pageable pageable) throws Exception {
     try {
         Iterable<Kependudukan> penduduk = repoKependudukan.findAll((org.springframework.data.domain.Pageable) pageable);
@@ -48,8 +51,7 @@ public Iterable<Kependudukan> findAll(Pageable pageable) throws Exception {
         throw new RuntimeException(e);
     }
 }
-@Override
-public Optional<Kependudukan> findById(Long nik) throws Exception {
+public Optional<Kependudukan> findById(String nik) throws Exception {
         try{Optional<Kependudukan> penduduk = repoKependudukan.findById(nik);
             if (penduduk.isEmpty()) {
                 throw new NotFoundException("penduduk tidak ada");
@@ -61,8 +63,7 @@ public Optional<Kependudukan> findById(Long nik) throws Exception {
         }
 }
 
-    @Override
-    public Kependudukan update(Kependudukan kependudukan, Long nik) throws Exception {
+    public Kependudukan update(Kependudukan kependudukan, String nik) throws Exception {
         try{
             Optional<Kependudukan>penduduk = repoKependudukan.findById(nik);
             if(penduduk.isEmpty()){
@@ -77,8 +78,7 @@ public Optional<Kependudukan> findById(Long nik) throws Exception {
 
     }
 
-    @Override
-    public void deleteById(Long nik) throws Exception {
+    public void deleteById(String nik) throws Exception {
         try{
             Optional<Kependudukan>kependudukan = repoKependudukan.findById(nik);
             if(kependudukan.isEmpty()){

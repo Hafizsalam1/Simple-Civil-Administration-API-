@@ -11,19 +11,21 @@ import java.util.Date;
 
 public class KependudukanDTO {
 
-    @NotNull(message="{invalid.NIK.NotFound}")
-    @Digits(integer = 16, fraction = 0, message="{invalid.NIK.NOT16Digit}")
-//    @Pattern(regexp="[^0-9]+", message = "{invalid.NIK.ErrorDataType}")
-    private Long NIK;
+    @NotBlank(message="{invalid.data.NotFound}")
+    @Pattern(regexp="[0-9]+", message = "{invalid.NIK.ErrorDataType}")
+    @Size(max = 16, min = 16, message = "{invalid.NIK.NOT16Digit}")
+    private String NIK;
     private String nama;
     private String TempatLahir;
+
+    @Past(message="{invalid.Date.Future}")
     private Date TanggalLahir;
     private Kecamatan kecamatan;
     private Kelurahan kelurahan;
-    public Long getNIK() {
+    public String getNIK() {
         return NIK;
     }
-    public void setNIK(Long NIK) {
+    public void setNIK(String NIK) {
         this.NIK = NIK;
     }
 

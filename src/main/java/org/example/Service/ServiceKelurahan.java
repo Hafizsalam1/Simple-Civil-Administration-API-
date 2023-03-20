@@ -5,19 +5,21 @@ import org.example.Model.Kecamatan;
 import org.example.Model.Kelurahan;
 import org.example.Model.Kependudukan;
 import org.example.Repo.RepoKelurahan;
+import org.example.Repo.RepoKependudukan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ServiceKelurahan implements IService<Kelurahan> {
 
     @Autowired
     RepoKelurahan repoKelurahan;
+
+    @Autowired
+    RepoKependudukan repoKependudukan;
 
 
     @Override
@@ -41,7 +43,7 @@ public class ServiceKelurahan implements IService<Kelurahan> {
             }
 
             if (kelurahans.isEmpty()) {
-                throw new NotFoundException("Tidak ada kecamatan");
+                throw new NotFoundException("Tidak ada kelurahan");
             }
             return kelurahan;
         } catch (Exception e) {
@@ -110,5 +112,25 @@ public class ServiceKelurahan implements IService<Kelurahan> {
         }
         catch (Exception e){throw new RuntimeException(e);}
     }
+
+    public Set<Kependudukan> saveAll(List<Kependudukan> kependudukans, Long id) throws Exception{
+        try{
+            Set<Kependudukan>kependudukans1 = new HashSet<>();
+            for (Kependudukan kep :kependudukans) {
+                kep.setKelurahan(repoKelurahan.findById(id).get());
+                kep.setKecamatan(kep.getKelurahan().getKecamatan());
+                repoKependudukan.save(kep);
+                kependudukans1.add(kep);
+            }
+            return kependudukans1;
+
+        }
+        catch (Exception e){
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
 
 }

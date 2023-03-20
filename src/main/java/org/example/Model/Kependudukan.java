@@ -13,7 +13,7 @@ public class Kependudukan implements Serializable {
 
     @Id
     @Column(length = 100)
-    private Long NIK;
+    private String NIK;
 
     @Column(length = 100)
     private String nama;
@@ -36,18 +36,18 @@ public class Kependudukan implements Serializable {
     public Kependudukan() {
     }
 
-    public Kependudukan(Long NIK, String nama, String tempatLahir, Date tanggalLahir) {
+    public Kependudukan(String NIK, String nama, String tempatLahir, Date tanggalLahir) {
         this.NIK = NIK;
         this.nama = nama;
         TempatLahir = tempatLahir;
         TanggalLahir = tanggalLahir;
     }
 
-    public Long getNIK() {
+    public String getNIK() {
         return NIK;
     }
 
-    public void setNIK(Long NIK) {
+    public void setNIK(String NIK) {
         this.NIK = NIK;
     }
 

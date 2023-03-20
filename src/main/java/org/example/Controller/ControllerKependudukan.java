@@ -47,20 +47,20 @@ public class ControllerKependudukan {
     }
 
     @GetMapping("/{nik}")
-    public ResponseEntity getByNIK(@PathVariable Long nik) throws Exception {
+    public ResponseEntity getByNIK(@PathVariable String nik) throws Exception {
         Optional<Kependudukan> kependudukan = serviceKependudukan.findById(nik);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Optional<Kependudukan>>("Get by NIK Succeed", kependudukan));
     }
 
     @DeleteMapping("/{nik}")
-    public ResponseEntity deleteByNIK(@PathVariable Long nik) throws Exception {
+    public ResponseEntity deleteByNIK(@PathVariable String nik) throws Exception {
         Optional<Kependudukan> kependudukan = serviceKependudukan.findById(nik);
         serviceKependudukan.deleteById(nik);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Optional<Kependudukan>>("Delete Succeed",kependudukan));
     }
 
     @PutMapping("/{nik}")
-    public ResponseEntity updateByNIK(@Valid@RequestBody KependudukanDTO kependudukanDTO, @PathVariable Long nik) throws Exception {
+    public ResponseEntity updateByNIK(@Valid@RequestBody KependudukanDTO kependudukanDTO, @PathVariable String nik) throws Exception {
         Kependudukan kependudukan = modelMapper.map(kependudukanDTO, Kependudukan.class);
         kependudukan.setNIK(nik);
         serviceKependudukan.update(kependudukan, nik);
