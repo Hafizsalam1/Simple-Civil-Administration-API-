@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RepoKependudukan extends PagingAndSortingRepository<Kependudukan, Long>, CrudRepository<Kependudukan, Long> {
     public Page<Kependudukan> findAll(Pageable pageable);
-    Page<Kependudukan> findByNamaLengkapContains(String namaLengkap, Pageable pageable);
+    Page<Kependudukan> findByNamaContains(String namaLengkap, Pageable pageable);
 
 
 

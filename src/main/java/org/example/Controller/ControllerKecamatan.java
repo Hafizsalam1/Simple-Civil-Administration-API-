@@ -61,6 +61,7 @@ public class ControllerKecamatan {
     @PutMapping("/{id}")
     public ResponseEntity updateById(@Valid@RequestBody KecamatanDTO kecamatanDTO, @PathVariable Long id) throws Exception {
         Kecamatan kecamatan = modelMapper.map(kecamatanDTO, Kecamatan.class);
+        kecamatan.setId(id);
         serviceKecamatan.update(kecamatan, id);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Kecamatan>("Update Succeed",kecamatan));
     }

@@ -103,7 +103,7 @@ public class ServiceKelurahan implements IService<Kelurahan> {
             }
 
             if (kelurahans.isEmpty()) {
-                throw new NotFoundException("Tidak ada kecamatan");
+                throw new NotFoundException("Tidak ada kelurahan");
             }
             return kelurahan;
 

@@ -31,10 +31,10 @@ public class ControllerKependudukan {
 
     @GetMapping("/{size}/{page}/{sort}")
     public ResponseEntity getAllPenduduk(@PathVariable int page, @PathVariable int size, @PathVariable String sort) throws Exception {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("NIK").ascending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("nama").ascending());
         Iterable<Kependudukan> penduduk = serviceKependudukan.findAll(pageable);
         if(sort.equalsIgnoreCase("desc")){
-            pageable = PageRequest.of(page, size, Sort.by("NIK").descending());
+            pageable = PageRequest.of(page, size, Sort.by("nama").descending());
         }
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Iterable<Kependudukan>>("Get All Succeed", penduduk));
     }
@@ -46,31 +46,32 @@ public class ControllerKependudukan {
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Kependudukan>("Add Penduduk Succeed", kependudukan));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{nik}")
     public ResponseEntity getByNIK(@PathVariable Long nik) throws Exception {
         Optional<Kependudukan> kependudukan = serviceKependudukan.findById(nik);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Optional<Kependudukan>>("Get by NIK Succeed", kependudukan));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{nik}")
     public ResponseEntity deleteByNIK(@PathVariable Long nik) throws Exception {
         Optional<Kependudukan> kependudukan = serviceKependudukan.findById(nik);
         serviceKependudukan.deleteById(nik);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Optional<Kependudukan>>("Delete Succeed",kependudukan));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{nik}")
     public ResponseEntity updateByNIK(@Valid@RequestBody KependudukanDTO kependudukanDTO, @PathVariable Long nik) throws Exception {
         Kependudukan kependudukan = modelMapper.map(kependudukanDTO, Kependudukan.class);
+        kependudukan.setNIK(nik);
         serviceKependudukan.update(kependudukan, nik);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<Kependudukan>("Update Succeed",kependudukan));
     }
 
     @PostMapping("/search/nama/{size}/{page}/{sort}")
-    public ResponseEntity findByNamaLengkapContains(@RequestBody KependudukanDTO kependudukanDTO, @PathVariable int page, @PathVariable int size, @PathVariable String sort) throws Exception {
+    public ResponseEntity findByNamaContains(@RequestBody KependudukanDTO kependudukanDTO, @PathVariable int page, @PathVariable int size, @PathVariable String sort) throws Exception {
         Pageable pageable = PageRequest.of(page, size, Sort.by("NIK").ascending());
         Kependudukan kependudukan = modelMapper.map(kependudukanDTO, Kependudukan.class);
-        Iterable<Kependudukan> kependudukans =  serviceKependudukan.findByNamaLengkapContains(kependudukan.getNamaLengkap(),pageable);
+        Iterable<Kependudukan> kependudukans =  serviceKependudukan.findByNamaContains(kependudukan.getNama(),pageable);
         if(sort.equalsIgnoreCase("desc")){
             pageable = PageRequest.of(page, size, Sort.by("NIK").descending());
         }

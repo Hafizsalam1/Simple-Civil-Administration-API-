@@ -17,7 +17,7 @@ public class Kelurahan implements Serializable {
     private String Nama;
 
     @ManyToOne
-    @JsonBackReference(value="kelurahan-kecamatan")
+    @JsonBackReference(value="kecamatan-kelurahan")
     private Kecamatan kecamatan;
 
     @OneToMany(mappedBy = "kelurahan")
@@ -26,9 +26,10 @@ public class Kelurahan implements Serializable {
     public Kelurahan() {
     }
 
-    public Kelurahan(Long id, String nama) {
+    public Kelurahan(Long id, String nama, Kecamatan kecamatan) {
         this.id = id;
         Nama = nama;
+        this.kecamatan = kecamatan;
     }
 
     public Long getId() {

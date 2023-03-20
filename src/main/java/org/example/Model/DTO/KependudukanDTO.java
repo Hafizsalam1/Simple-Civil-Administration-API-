@@ -15,7 +15,7 @@ public class KependudukanDTO {
     @Digits(integer = 16, fraction = 0, message="{invalid.NIK.NOT16Digit}")
 //    @Pattern(regexp="[^0-9]+", message = "{invalid.NIK.ErrorDataType}")
     private Long NIK;
-    private String NamaLengkap;
+    private String nama;
     private String TempatLahir;
     private Date TanggalLahir;
     private Kecamatan kecamatan;
@@ -26,12 +26,13 @@ public class KependudukanDTO {
     public void setNIK(Long NIK) {
         this.NIK = NIK;
     }
-    public String getNamaLengkap() {
-        return NamaLengkap;
+
+    public String getNama() {
+        return nama;
     }
 
-    public void setNamaLengkap(String namaLengkap) {
-        NamaLengkap = namaLengkap;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public String getTempatLahir() {

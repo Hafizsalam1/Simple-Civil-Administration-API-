@@ -91,10 +91,10 @@ public Optional<Kependudukan> findById(Long nik) throws Exception {
         }
     }
 
-    public Iterable<Kependudukan> findByNamaLengkapContains(String namaLengkap, org.springframework.data.domain.Pageable pageable) throws Exception{
+    public Iterable<Kependudukan> findByNamaContains(String namaLengkap, org.springframework.data.domain.Pageable pageable) throws Exception{
 
         try{
-        Iterable<Kependudukan> penduduk = repoKependudukan.findByNamaLengkapContains(namaLengkap, pageable);
+        Iterable<Kependudukan> penduduk = repoKependudukan.findByNamaContains(namaLengkap, pageable);
         if (penduduk==null) {
             throw new NotFoundException("Penduduk tidak ditemukan");
         }

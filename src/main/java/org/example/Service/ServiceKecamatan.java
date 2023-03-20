@@ -99,12 +99,10 @@ public class ServiceKecamatan implements IService<Kecamatan> {
             for (Kecamatan kec : kecamatan) {
                 kecamatans.add(kec);
             }
-
             if (kecamatans.isEmpty()) {
                 throw new NotFoundException("Tidak ada kecamatan");
             }
             return kecamatan;
-
         }
         catch (Exception e){throw new RuntimeException(e);}
     }
